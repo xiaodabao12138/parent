@@ -15,3 +15,5 @@ public class Employee {
     private boolean admin;
     private int deptId;
 }
+
+

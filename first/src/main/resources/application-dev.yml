@@ -1,0 +1,59 @@
+server:
+  port: 8080
+
+#mysql配置文件
+#spring:
+#  datasource:
+#    username: root
+#    password: admin
+#    url: jdbc:mysql://localhost:3306/wms?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+##mybatis文件配置
+#mybatis:
+#  #xml文件所在位置
+#  mapper-locations: classpath:mapper/*Mapper.xml
+#  #给包中的实体类取别名
+#  type-aliases-package: com.dabao.entity
+
+
+#druid配置，使用druid连接池，可以理解为通过我们自己定义一个DataSource来连接数据库，如果不用就是直接使用mysql创建的DataSource。
+#只是替换到通过druid中的数据源来连接数据库，使用了
+#spring-boot不支持自动配druid连接池（即无法通过配置项直接支持配置相应的连接池）；
+#这里列出的这些配置项可以通过定制化DataSource来实现，也可以在定制化的DataSource配置类来创建
+ds1:
+  datasource:
+    url: jdbc:mysql://localhost:3306/wms?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: admin
+    driverClassName: com.mysql.cj.jdbc.Driver
+    #初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
+    initialSize: 20
+    #最小连接池数量
+    minIdle: 20
+    #最大连接池数量
+    maxActive: 200
+    #获取连接时最大等待时间，单位毫秒。配置了maxWait之后，缺省启用公平锁，（先来后到，相当于一个单端队列来存储任务）
+    #并发效率会有所下降，如果需要可以通过配置useUnfairLock属性为true使用非公平锁。（抢锁，竞争）
+    maxWait: 60000
+    #有两个含义：
+    #1) Destroy线程会检测连接的间隔时间
+    #2) testWhileIdle的判断依据，详细看testWhileIdle属性的说明
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    #建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，
+    #如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+    testWhileIdle: true
+    #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+    testOnBorrow: false
+    #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+    testOnReturn: false
+    #是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+
+spring:
+  　　 mvc:
+    　　  view:
+      　　 prefix: /WEB-INF/views
+      　　 suffix: .jsp

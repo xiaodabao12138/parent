@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dabao.first.mapper.EmployeeMapper">
+
+    <select id="getById" resultType="com.dabao.first.entity.Employee" parameterType="int">
+        select * from employee where id = #{id};
+    </select>
+
+    <insert id="insert" parameterType="com.dabao.first.entity.Employee" keyColumn="id">
+        insert into employee (name, password, email, age, admin, dept_id)
+            values (#{name}, #{password}, #{email}, #{age}, #{admin}, #{deptId});
+    </insert>
+
+</mapper>
